@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kelvin's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="6hIR5S-yB4p_SZl53_4kyltdNP5y-3xZ7bktr_SlQjc">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="一、一些有用的参考资料PyTorch官方文档：https://pytorch.org/docs/stable/index.html torchvision类似于tensorflow/models，包含了在计算机视觉领域主流的模型、数据以及图像处理函数。 torchvision官方文档：https://pytorch.org/docs/stable/torchvision/index.html">
+<meta name="keywords" content="PyTorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch入门学习笔记：Dataset和模型初探">
+<meta property="og:url" content="http://yejiayong.com/PyTorch入门学习笔记：Dataset和模型初探/index.html">
+<meta property="og:site_name" content="Kelvin&#39;s Blog">
+<meta property="og:description" content="一、一些有用的参考资料PyTorch官方文档：https://pytorch.org/docs/stable/index.html torchvision类似于tensorflow/models，包含了在计算机视觉领域主流的模型、数据以及图像处理函数。 torchvision官方文档：https://pytorch.org/docs/stable/torchvision/index.html">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-27T12:27:22.226Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PyTorch入门学习笔记：Dataset和模型初探">
+<meta name="twitter:description" content="一、一些有用的参考资料PyTorch官方文档：https://pytorch.org/docs/stable/index.html torchvision类似于tensorflow/models，包含了在计算机视觉领域主流的模型、数据以及图像处理函数。 torchvision官方文档：https://pytorch.org/docs/stable/torchvision/index.html">
+  <link rel="canonical" href="http://yejiayong.com/PyTorch入门学习笔记：Dataset和模型初探/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>PyTorch入门学习笔记：Dataset和模型初探 | Kelvin's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kelvin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&gt;首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&gt;归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yejiayong.com/PyTorch入门学习笔记：Dataset和模型初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Jiayong">
+      <meta itemprop="description" content="Edge Computing, Vision">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kelvin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">PyTorch入门学习笔记：Dataset和模型初探
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-03 19:16:24" itemprop="dateCreated datePublished" datetime="2019-04-03T19:16:24+08:00">2019-04-03</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/PyTorch入门学习笔记：Dataset和模型初探/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="PyTorch入门学习笔记：Dataset和模型初探/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、一些有用的参考资料"><a href="#一、一些有用的参考资料" class="headerlink" title="一、一些有用的参考资料"></a>一、一些有用的参考资料</h2><p>PyTorch官方文档：<a href="https://pytorch.org/docs/stable/index.html" target="_blank" rel="noopener">https://pytorch.org/docs/stable/index.html</a></p>
+<p>torchvision类似于tensorflow/models，包含了在计算机视觉领域主流的模型、数据以及图像处理函数。</p>
+<p>torchvision官方文档：<a href="https://pytorch.org/docs/stable/torchvision/index.html" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/index.html</a></p>
+<a id="more"></a>
+
+<h2 id="二、cifar数据集获取，如何使用数据集"><a href="#二、cifar数据集获取，如何使用数据集" class="headerlink" title="二、cifar数据集获取，如何使用数据集"></a>二、cifar数据集获取，如何使用数据集</h2><p>PyTorch数据集被封装成<code>torch.utils.data.Dataset</code>类型，并且torchvision内的cifar数据集实现正是Dataset类型很好的一个实现实例，因此可以通过cifar数据集学习如何正确使用Dataset类型。</p>
+<p>cifar数据集官网：<a href="https://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="noopener">https://www.cs.toronto.edu/~kriz/cifar.html</a></p>
+<p>torchvision datasets文档：<a href="https://pytorch.org/docs/stable/torchvision/datasets.html，包含了torchvision已经实现的所有datasets的信息。" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/datasets.html，包含了torchvision已经实现的所有datasets的信息。</a></p>
+<p>torchvision内置的cifar数据集实现：位于<code>torchvision.datasets.cifar</code>中，代码位于 <a href="https://pytorch.org/docs/master/_modules/torchvision/datasets/cifar.html" target="_blank" rel="noopener">https://pytorch.org/docs/master/_modules/torchvision/datasets/cifar.html</a></p>
+<p>需要使用的import：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision.datasets <span class="keyword">import</span> cifar</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dataset类"><a href="#Dataset类" class="headerlink" title="Dataset类"></a>Dataset类</h3><p>一个典型的<code>Dataset</code>类可以抽象成如下的数据结构：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDataset</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, ...)</span>:</span></span><br><span class="line">    <span class="comment"># 初始化dataset</span></span><br><span class="line">    self.data = ... <span class="comment"># x data</span></span><br><span class="line">    self.target = ... <span class="comment"># y label</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">    <span class="comment"># 返回第index个数据</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 返回数据集样本量</span></span><br></pre></td></tr></table></figure>
+
+<p>Dataset类最重要的两个方法为<code>__getitem__</code>和<code>__len__</code>方法，分别返回第i个数据和数据量有多少。使用<code>__getitem__</code>的原因主要是为了将Dataset接入迭代器的考虑。也就是说，<code>Dataset</code>类相当于一个数据容器，PyTorch在模型上调用数据，会通过<code>torch.utils.data.DataLoader</code>类从Dataset中抽取数据，并输入模型。</p>
+<p>综上，torchvision内置的Cafar的数据结构就容易理解了：<code>__init__</code>根据传入的参数设置数据集的属性，并且自动下载数据集；<code>__getitem__</code>返回img、target两个对象，分别是图像和对应的label。在构建自己的数据集时，可以参照上述的实现，自行继承Dataset类。</p>
+<h3 id="DataLoader类"><a href="#DataLoader类" class="headerlink" title="DataLoader类"></a>DataLoader类</h3><p>DataLoader位于<code>torch.util.data.DataLoader</code>中，最主要的作用是为模型提供数据的输入队列。它读取<code>Dataset</code>的输入，将输入按照特定的配置封装成batch，在PyTorch运行中需要从DataLoader中获取数据的时候，返回一个DataLoaderIter迭代器对象，这个迭代器内置<code>__next__</code>方法，在python循环中被调用，类比TensorFlow的<code>make_one_shot_iterator()</code>返回的迭代器。</p>
+<p>需要注意的是，DataLoader只从Dataset中接受<strong>tensor, number, dict, list</strong>类型的数据，但是Dataset默认的构造方法并不会对原数据集进行任何预处理，也就是说仅获取数据集的原格式并不能直接供DataLoader使用，尤其是图像的PIL Image格式。</p>
+<p>如果将Cifar数据集不带任何预处理直接接入DataLoader中，如下代码所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dataloader = DataLoader(dataset, batch_size=<span class="number">1</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, data <span class="keyword">in</span> enumerate(dataloader):</span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">2</span>: </span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(i)</span><br><span class="line">    img, label = data</span><br><span class="line">    print(<span class="string">"data: "</span>, data)</span><br><span class="line">    print(<span class="string">"label: "</span>, label)</span><br></pre></td></tr></table></figure>
+
+<p>在迭代DataLoader时会报以下错误：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: batch must contain tensors, numbers, dicts <span class="keyword">or</span> lists; found &lt;<span class="class"><span class="keyword">class</span> '<span class="title">PIL</span>.<span class="title">Image</span>.<span class="title">Image</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>根据<a href="https://discuss.pytorch.org/t/image-file-reading-typeerror-batch-must-contain-tensors-numbers-dicts-or-lists-found-class-pil-image-image/9909" target="_blank" rel="noopener">https://discuss.pytorch.org/t/image-file-reading-typeerror-batch-must-contain-tensors-numbers-dicts-or-lists-found-class-pil-image-image/9909</a> 所述：</p>
+<blockquote>
+<p>The error states that the DataLoader receives a PIL image. This is because there are no transforms made (<code>transform=None</code>) on the image. The <code>__getitem__</code> method of MyDataset passes an unprocessed PIL image to the DataLoader, whereas it should receive a tensor.</p>
+</blockquote>
+<p>因此，Dataset需要将<code>__getitem__</code>返回的数据先通过<code>transform</code>预处理之后，才能正确被DataLoader读取。</p>
+<p>修改Dataset构造代码，传入transform：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">transform = transforms.Compose([</span><br><span class="line">    transforms.ToTensor()</span><br><span class="line">])</span><br><span class="line">dataset = cifar.CIFAR10(dataset_folder, <span class="literal">True</span>, download=<span class="literal">True</span>, transform=transform)</span><br></pre></td></tr></table></figure>
+
+<p><code>transforms.ToTensor()</code>方法将一个<code>PIL Image</code>或者<code>numpy.ndarray</code>转换成一个tensor。</p>
+<p>内部<code>__getitem__</code>读取transform的操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, index)</span>:</span></span><br><span class="line">  ...</span><br><span class="line">  img = Image.fromarray(img)</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">if</span> self.transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    img = self.transform(img)</span><br><span class="line">  <span class="keyword">if</span> self.target_transform <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">    target = self.target_transform(target)</span><br><span class="line">  <span class="keyword">return</span> img, target</span><br></pre></td></tr></table></figure>
+
+<p>经过ToTensor()后，调用Dataset获取item的操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">transform = transforms.Compose([</span><br><span class="line">    transforms.ToTensor()</span><br><span class="line">])</span><br><span class="line">dataset = cifar.CIFAR10(dataset_folder, <span class="literal">True</span>, download=<span class="literal">True</span>, transform=transform)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>):</span><br><span class="line">    img, label = dataset.__getitem__(i)</span><br><span class="line">    print(<span class="string">"img dtype: "</span>, img.dtype, <span class="string">", and img shape: "</span>, img.shape)</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img dtype:  torch.float32 , <span class="keyword">and</span> img shape:  torch.Size([<span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>])</span><br></pre></td></tr></table></figure>
+
+<p>可见dataset拿到的数据已经正确transform，可以顺利被DataLoader获取。</p>
+<h3 id="transforms"><a href="#transforms" class="headerlink" title="transforms"></a>transforms</h3><p>transforms官方文档：<a href="https://pytorch.org/docs/stable/torchvision/transforms.html" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/transforms.html</a></p>
+<p>几乎所有的数据使用前都需要预处理，transforms位于<code>torchvision</code>内，提供了绝大多数受支持的预处理操作。transforms使用<code>Compose</code>打包需要用到的Transform对象的列表，然后返回一个变换序列对象，该对象执行时接受一个Transform支持的输入，执行序列中的变换后，返回最后一个变换函数的输出。类似于imgaug的iaa.Sequential。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>Dataset类为数据集容器</li>
+<li>DataLoader提供数据输入模型的管道</li>
+<li>transforms提供了数据预处理方式</li>
+</ol>
+<h2 id="三、AlexNet模型的使用"><a href="#三、AlexNet模型的使用" class="headerlink" title="三、AlexNet模型的使用"></a>三、AlexNet模型的使用</h2><p>等待补充</p>
+<h2 id="四、开始训练"><a href="#四、开始训练" class="headerlink" title="四、开始训练"></a>四、开始训练</h2><p>等待补充</p>
+<h2 id="五、将模型部署到GPU上"><a href="#五、将模型部署到GPU上" class="headerlink" title="五、将模型部署到GPU上"></a>五、将模型部署到GPU上</h2><p>等待补充</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/PyTorch/" rel="tag"># PyTorch</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/对于近期文章更新的说明/" rel="next" title="对于近期文章更新的说明">
+                  <i class="fa fa-chevron-left"></i> 对于近期文章更新的说明
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/PyTorch利用nn-Sequential优化网络搭建过程/" rel="prev" title="PyTorch利用nn.Sequential优化网络搭建过程">
+                  PyTorch利用nn.Sequential优化网络搭建过程 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、一些有用的参考资料"><span class="nav-number">1.</span> <span class="nav-text">一、一些有用的参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、cifar数据集获取，如何使用数据集"><span class="nav-number">2.</span> <span class="nav-text">二、cifar数据集获取，如何使用数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataset类"><span class="nav-number">2.1.</span> <span class="nav-text">Dataset类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataLoader类"><span class="nav-number">2.2.</span> <span class="nav-text">DataLoader类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transforms"><span class="nav-number">2.3.</span> <span class="nav-text">transforms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、AlexNet模型的使用"><span class="nav-number">3.</span> <span class="nav-text">三、AlexNet模型的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、开始训练"><span class="nav-number">4.</span> <span class="nav-text">四、开始训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、将模型部署到GPU上"><span class="nav-number">5.</span> <span class="nav-text">五、将模型部署到GPU上</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ye Jiayong</p>
+  <div class="site-description" itemprop="description">Edge Computing, Vision</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/kelvin65535" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;kelvin65535" rel="noopener" target="_blank">&lt;i class&#x3D;&quot;fa fa-fw fa-github&quot;&gt;&lt;&#x2F;i&gt;GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Jiayong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://yejiayong.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://yejiayong.com/PyTorch入门学习笔记：Dataset和模型初探/";
+    this.page.identifier = "PyTorch入门学习笔记：Dataset和模型初探/";
+    this.page.title = 'PyTorch入门学习笔记：Dataset和模型初探';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://yejiayong.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>

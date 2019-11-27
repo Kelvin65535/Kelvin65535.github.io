@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kelvin's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="6hIR5S-yB4p_SZl53_4kyltdNP5y-3xZ7bktr_SlQjc">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前言Webhooks可谓是GitHub的其中一个大杀器，利用Webhooks可以做很多自动化执行的事情。 在正确配置了Webhooks的项目上，Webhooks会接受对当前项目指定的操作（如commit、push、pull request等）作为触发响应的事件，当事件被触发后，Webhooks会向绑定的域名发送一条带有操作信息的web请求。若一个服务器监听了这个web请求的地址和端口，那么该服务器">
+<meta name="keywords" content="Ubuntu,GitHub,PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用GitHub Webhooks实现自动化部署">
+<meta property="og:url" content="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/index.html">
+<meta property="og:site_name" content="Kelvin&#39;s Blog">
+<meta property="og:description" content="前言Webhooks可谓是GitHub的其中一个大杀器，利用Webhooks可以做很多自动化执行的事情。 在正确配置了Webhooks的项目上，Webhooks会接受对当前项目指定的操作（如commit、push、pull request等）作为触发响应的事件，当事件被触发后，Webhooks会向绑定的域名发送一条带有操作信息的web请求。若一个服务器监听了这个web请求的地址和端口，那么该服务器">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/1.png">
+<meta property="og:image" content="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/2.png">
+<meta property="og:updated_time" content="2019-11-27T12:27:22.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用GitHub Webhooks实现自动化部署">
+<meta name="twitter:description" content="前言Webhooks可谓是GitHub的其中一个大杀器，利用Webhooks可以做很多自动化执行的事情。 在正确配置了Webhooks的项目上，Webhooks会接受对当前项目指定的操作（如commit、push、pull request等）作为触发响应的事件，当事件被触发后，Webhooks会向绑定的域名发送一条带有操作信息的web请求。若一个服务器监听了这个web请求的地址和端口，那么该服务器">
+<meta name="twitter:image" content="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/1.png">
+  <link rel="canonical" href="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>利用GitHub Webhooks实现自动化部署 | Kelvin's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kelvin's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&gt;首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&gt;归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ye Jiayong">
+      <meta itemprop="description" content="Edge Computing, Vision">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kelvin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">利用GitHub Webhooks实现自动化部署
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-09-01 09:50:10" itemprop="dateCreated datePublished" datetime="2017-09-01T09:50:10+08:00">2017-09-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/利用GitHub-Webhooks实现自动化部署/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="利用GitHub-Webhooks实现自动化部署/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Webhooks可谓是GitHub的其中一个大杀器，利用Webhooks可以做很多自动化执行的事情。</p>
+<p>在正确配置了Webhooks的项目上，Webhooks会接受对当前项目指定的操作（如commit、push、pull request等）作为触发响应的事件，当事件被触发后，Webhooks会向绑定的域名发送一条带有操作信息的web请求。若一个服务器监听了这个web请求的地址和端口，那么该服务器就可以接收该请求并获取操作信息，同时根据信息执行不同的任务。</p>
+<p>一个典型的场景就是远程服务器自动部署Web项目。向项目提交修改后，通过Webhooks向服务器发送请求，服务器接收并分析Webhooks请求后执行脚本，自动部署当前项目到Web目录，即可立即在浏览器查看当前作出的修改。下面就以这个场景为例配置Webhooks和服务器，来实现上述效果。</p>
+<p>服务器执行环境：Ubuntu 14.04，Apache 2.4.7，PHP 5.5.9</p>
+<p>GitHub Webhooks 文档：<a href="https://developer.github.com/webhooks/" target="_blank" rel="noopener">https://developer.github.com/webhooks/</a></p>
+<a id="more"></a>
+
+<h2 id="配置Webhooks"><a href="#配置Webhooks" class="headerlink" title="配置Webhooks"></a>配置Webhooks</h2><p>打开Github项目仓库页面-Settings-Webhooks，进入Webhooks配置页面，点击Add Webhooks新增一个webhook，如图：</p>
+<p><img src="/利用GitHub-Webhooks实现自动化部署/1.png" alt="新增Webhooks"></p>
+<p>配置项如下：</p>
+<p>Payload URL：webhook发送请求的URL地址。</p>
+<p>Content type：webhook请求数据格式。</p>
+<p>Secret：可选，用于服务器对webhook请求进行校验。若该项被设置后，服务器的校验方法如下：</p>
+<ol>
+<li>在请求的<code>X-Hub-Signature</code>头带有服务器的校验算法和签名，格式为<code>算法=签名</code>，例如<code>sha1=xxxxxxxxxxxxxxx</code>；</li>
+<li>服务器利用该算法进行HMAC校验，其中key为配置的Secret值，value为webhook发送的消息体；</li>
+<li>若计算的签名与<code>X-Hub-Signature</code>头附带的签名一致则通过，否则为错误请求。</li>
+</ol>
+<p>在“Which events would you like to trigger this webhook?”中选择webhook响应的事件种类，可选择仅响应push事件、响应所有事件及自定义要响应的事件。</p>
+<p>若勾选了Active选项，则事件详情会包含在webhook请求的消息体中。</p>
+<p>配置完毕后，点击Add webhook会为当前项目新增一条webhook。与此同时，webhook会向当前URL发送一条ping请求，用于测试域名是否可用。在Recent Deliveries中可以查看webhook发送的请求，当请求发送成功会显示绿色的打钩图标，发送错误显示红色的交叉图标。</p>
+<p>一个典型的请求如下：</p>
+<p><img src="/利用GitHub-Webhooks实现自动化部署/2.png" alt="新增Webhooks"></p>
+<h2 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h2><p>在配置完Webhooks后，还要对接收webhook请求的服务器进行配置，才能正确响应webhook发送的请求。在此处本人使用PHP接收webhook请求，并调用一个服务器脚本，来自动更新部署在<code>/var/www/html/</code>目录内的git项目。</p>
+<p>为方便监测服务器是否正确处理webhook的请求，此处还利用了<a href="http://sc.ftqq.com" target="_blank" rel="noopener">Server酱自动发送信息的功能</a>，发送方法位于<code>sc_send()</code>，如果不需要的话可以删去。</p>
+<p>文件如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    error_reporting(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    $secret = <span class="string">''</span>; <span class="comment">// 在webhook配置的secret字符串</span></span><br><span class="line">    $sc_key = <span class="string">''</span>; <span class="comment">// Server酱用户key</span></span><br><span class="line">    $shell_path = <span class="string">''</span>; <span class="comment">// shell脚本所在位置</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Server酱发送信息的程序</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sc_send</span><span class="params">($text, $desp = <span class="string">''</span>, $key = $sc_key)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $postdata = http_build_query(</span><br><span class="line">            <span class="keyword">array</span>(</span><br><span class="line">                <span class="string">'text'</span> =&gt; $text,</span><br><span class="line">                <span class="string">'desp'</span> =&gt; $desp</span><br><span class="line">            )</span><br><span class="line">        );</span><br><span class="line">        $opts = <span class="keyword">array</span>(<span class="string">'http'</span> =&gt;</span><br><span class="line">            <span class="keyword">array</span>(</span><br><span class="line">                <span class="string">'method'</span>  =&gt; <span class="string">'POST'</span>,</span><br><span class="line">                <span class="string">'header'</span>  =&gt; <span class="string">'Content-type: application/x-www-form-urlencoded'</span>,</span><br><span class="line">                <span class="string">'content'</span> =&gt; $postdata</span><br><span class="line">            )</span><br><span class="line">        );</span><br><span class="line">        $context = stream_context_create($opts);</span><br><span class="line">        <span class="keyword">return</span> $result = file_get_contents(<span class="string">'https://sc.ftqq.com/'</span>.$key.<span class="string">'.send'</span>, <span class="keyword">false</span>, $context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取webhook信息</span></span><br><span class="line">    $payload = file_get_contents(<span class="string">'php://input'</span>);</span><br><span class="line">    $json = json_decode($payload, <span class="keyword">true</span>);</span><br><span class="line">    $headers = apache_request_headers(); <span class="comment">// 该函数只在Apache生效</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ($secret !== <span class="string">''</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!array_key_exists(<span class="string">'X-Hub-Signature'</span>, $headers)) &#123;</span><br><span class="line">            <span class="comment">// 服务器签名获取失败</span></span><br><span class="line">            sc_send(<span class="string">"错误：webhook secret在github未配置或者获取签名失败"</span>);</span><br><span class="line">            <span class="keyword">exit</span>(<span class="string">"错误：webhook secret在github未配置或者获取签名失败"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            $secret_header = $headers[<span class="string">'X-Hub-Signature'</span>];</span><br><span class="line">            <span class="keyword">list</span>($algo, $hash_from_server) = explode(<span class="string">'='</span>, $secret_header, <span class="number">2</span>);</span><br><span class="line">            $hash_result = hash_hmac($algo, $payload, $secret);</span><br><span class="line">            <span class="keyword">if</span> ($hash_result !== $hash_from_server)&#123;</span><br><span class="line">                $text = <span class="string">"github发送的签名："</span> . $hash_from_server . <span class="string">"&lt;/br&gt;服务器校验结果："</span> . $hash_result;</span><br><span class="line">                sc_send(<span class="string">"错误：webhook secret校验错误&lt;/br&gt;"</span> . $text);</span><br><span class="line">                <span class="keyword">exit</span>(<span class="string">"错误：webhook secret校验错误&lt;/br&gt;"</span> . $text);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 校验通过，执行脚本</span></span><br><span class="line">    $repo = $json[<span class="string">'repository'</span>][<span class="string">'name'</span>];</span><br><span class="line">    exec($shell_path . <span class="string">' '</span> .$repo);</span><br></pre></td></tr></table></figure>
+
+<p>当PHP程序正确获取webhook请求并校验成功后，在最后一句<code>exec()</code>会调用服务器的脚本进行进一步的操作。</p>
+<p>在调用服务器脚本时需要注意Apache默认执行的用户为www-data，有可能出现权限不足的现象。</p>
+<p>一个典型的自动拉取git仓库的脚本如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># 从传入参数$1中获取仓库名称，构造git仓库路径</span></span><br><span class="line">deployTargetDir=<span class="string">"/var/www/html/<span class="variable">$&#123;1&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">git --git-dir=<span class="variable">$&#123;deployTargetDir&#125;</span>/.git --work-tree=<span class="variable">$&#123;deployTargetDir&#125;</span> reset --hard origin/master</span><br><span class="line">git --git-dir=<span class="variable">$&#123;deployTargetDir&#125;</span>/.git --work-tree=<span class="variable">$&#123;deployTargetDir&#125;</span> clean -f</span><br><span class="line">git --git-dir=<span class="variable">$&#123;deployTargetDir&#125;</span>/.git --work-tree=<span class="variable">$&#123;deployTargetDir&#125;</span> pull</span><br><span class="line">git --git-dir=<span class="variable">$&#123;deployTargetDir&#125;</span>/.git --work-tree=<span class="variable">$&#123;deployTargetDir&#125;</span> checkout master</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>[脚本名] [git仓库名]</code>命令调用脚本。</p>
+<p>至此，简单的webhook使用配置完成，若需要执行更复杂的功能，例如根据webhook不同事件的请求响应不同操作，可以在PHP文件和脚本中加入更多的判断和指令。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+            
+              <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+            
+              <a href="/tags/PHP/" rel="tag"># PHP</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Ubuntu修改Apache默认执行用户/" rel="next" title="Ubuntu修改Apache默认执行用户">
+                  <i class="fa fa-chevron-left"></i> Ubuntu修改Apache默认执行用户
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/关于Underscore-js的map方法返回对象的问题/" rel="prev" title="关于Underscore.js的map函数返回对象的问题">
+                  关于Underscore.js的map函数返回对象的问题 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Webhooks"><span class="nav-number">2.</span> <span class="nav-text">配置Webhooks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置服务器"><span class="nav-number">3.</span> <span class="nav-text">配置服务器</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ye Jiayong</p>
+  <div class="site-description" itemprop="description">Edge Computing, Vision</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/kelvin65535" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;kelvin65535" rel="noopener" target="_blank">&lt;i class&#x3D;&quot;fa fa-fw fa-github&quot;&gt;&lt;&#x2F;i&gt;GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Jiayong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://yejiayong.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/";
+    this.page.identifier = "利用GitHub-Webhooks实现自动化部署/";
+    this.page.title = '利用GitHub Webhooks实现自动化部署';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://yejiayong.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>
