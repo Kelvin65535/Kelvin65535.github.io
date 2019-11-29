@@ -1,26 +1,20 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
-  <link rel="alternate" href="/atom.xml" title="Kelvin's Blog" type="application/atom+xml">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="6hIR5S-yB4p_SZl53_4kyltdNP5y-3xZ7bktr_SlQjc">
 
-<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+<link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
@@ -29,7 +23,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    version: '7.4.0',
+    version: '7.5.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
@@ -68,7 +62,8 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kelvin&#39;s Blog">
 <meta name="twitter:description" content="Edge Computing, Vision">
-  <link rel="canonical" href="http://yejiayong.com/">
+
+<link rel="canonical" href="http://yejiayong.com/">
 
 
 <script id="page-configurations">
@@ -90,8 +85,6 @@
 
 
 
-
-
   <noscript>
   <style>
   .use-motion .brand,
@@ -104,7 +97,6 @@
   .use-motion .post-body,
   .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -118,11 +110,11 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-meta">
 
@@ -136,11 +128,11 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
 </div>
 
@@ -148,26 +140,14 @@
 <nav class="site-nav">
   
   <ul id="menu" class="menu">
-      
-      
-      
-        
         <li class="menu-item menu-item-home">
-      
-    
 
-    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&gt;首页</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-archives">
-      
-    
 
-    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&gt;归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
   </li>
   </ul>
@@ -183,25 +163,25 @@
   </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+
+          <div class="content">
             
 
-          <div id="content" class="content">
-            
-  <div id="posts" class="posts-expand">
-        <article itemscope itemtype="http://schema.org/Article">
+  <div class="posts-expand">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/Calibration库开发笔记（二）：CMake依赖管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -209,9 +189,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Calibration%E5%BA%93%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9ACMake%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">Calibration库开发笔记（二）：CMake依赖管理</a>
           
+            <a href="/Calibration%E5%BA%93%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9ACMake%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">Calibration库开发笔记（二）：CMake依赖管理</a>
         </h1>
 
         <div class="post-meta">
@@ -220,18 +199,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-
-              
-                
               
 
               <time title="创建时间：2019-11-29 15:14:29 / 修改时间：21:19:35" itemprop="dateCreated datePublished" datetime="2019-11-29T15:14:29+08:00">2019-11-29</time>
             </span>
-          
-            
-
-            
-          
 
           
   
@@ -240,11 +211,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Calibration库开发笔记（二）：CMake依赖管理/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="Calibration库开发笔记（二）：CMake依赖管理/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/Calibration库开发笔记（二）：CMake依赖管理/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Calibration库开发笔记（二）：CMake依赖管理/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -261,13 +232,11 @@
           <p>本文是Calibration库的第二篇开发笔记，在开发Calibration库的过程中，会陆续将遇到的问题和解决方案记录下来，以供日后查阅和参考。</p>
 <p>在此次开发中我打算解决Calibration库依赖的第三方库导入问题。</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/Calibration库开发笔记（二）：CMake依赖管理/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -277,27 +246,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/Calibration库开发笔记（一）：前期准备/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -305,9 +270,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Calibration%E5%BA%93%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">Calibration库开发笔记（一）：前期准备</a>
           
+            <a href="/Calibration%E5%BA%93%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/" class="post-title-link" itemprop="url">Calibration库开发笔记（一）：前期准备</a>
         </h1>
 
         <div class="post-meta">
@@ -317,16 +281,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-11-27 22:33:23" itemprop="dateCreated datePublished" datetime="2019-11-27T22:33:23+08:00">2019-11-27</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -334,8 +290,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-29 21:17:16" itemprop="dateModified" datetime="2019-11-29T21:17:16+08:00">2019-11-29</time>
               </span>
-            
-          
 
           
   
@@ -344,11 +298,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Calibration库开发笔记（一）：前期准备/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="Calibration库开发笔记（一）：前期准备/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/Calibration库开发笔记（一）：前期准备/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Calibration库开发笔记（一）：前期准备/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -373,13 +327,11 @@
 </ol>
 <p>因此，我打算把现在常用的几个标定和配准的算法封装成库，并且提供C++和python的接口，使得调用更加方便。在这个系列中会把大部分计划和操作都记录下来，一方面为了备忘和整理思路，另一方面也把学习的经验和走过的弯路记录下来。 </p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/Calibration库开发笔记（一）：前期准备/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -389,27 +341,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/使用ZeroRPC库实现远程调用图像识别服务/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -417,9 +365,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/%E4%BD%BF%E7%94%A8ZeroRPC%E5%BA%93%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">使用ZeroRPC库实现远程调用图像识别服务</a>
           
+            <a href="/%E4%BD%BF%E7%94%A8ZeroRPC%E5%BA%93%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">使用ZeroRPC库实现远程调用图像识别服务</a>
         </h1>
 
         <div class="post-meta">
@@ -429,16 +376,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-09-09 00:43:43" itemprop="dateCreated datePublished" datetime="2019-09-09T00:43:43+08:00">2019-09-09</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -446,8 +385,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -456,11 +393,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/使用ZeroRPC库实现远程调用图像识别服务/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="使用ZeroRPC库实现远程调用图像识别服务/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/使用ZeroRPC库实现远程调用图像识别服务/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="使用ZeroRPC库实现远程调用图像识别服务/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -476,13 +413,11 @@
       
           <p><a href="https://github.com/0rpc/zerorpc-python" target="_blank" rel="noopener">ZeroRPC</a>是基于ZeroMQ的远程调用框架，它提供了方便的方式实现第三方调用本地服务的功能。在Baxter的视觉识别任务中，将训练完成的Mask RCNN模型在服务器中运行，连接机器人和ROS的客户端通过ZeroRPC调用服务器的识别服务，有效利用服务器的计算资源。由于在内网环境中，tcp连接和传输的时间可以满足摄像头捕捉的视频流的识别需求。</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/使用ZeroRPC库实现远程调用图像识别服务/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -492,27 +427,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/Kinect摄像头接入ROS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -520,9 +451,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Kinect%E6%91%84%E5%83%8F%E5%A4%B4%E6%8E%A5%E5%85%A5ROS/" class="post-title-link" itemprop="url">将Kinect v1摄像头接入ROS indigo</a>
           
+            <a href="/Kinect%E6%91%84%E5%83%8F%E5%A4%B4%E6%8E%A5%E5%85%A5ROS/" class="post-title-link" itemprop="url">将Kinect v1摄像头接入ROS indigo</a>
         </h1>
 
         <div class="post-meta">
@@ -532,16 +462,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-09-09 00:21:55" itemprop="dateCreated datePublished" datetime="2019-09-09T00:21:55+08:00">2019-09-09</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -549,8 +471,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -559,11 +479,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Kinect摄像头接入ROS/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="Kinect摄像头接入ROS/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/Kinect摄像头接入ROS/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Kinect摄像头接入ROS/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -580,13 +500,11 @@
           <p>参考：<a href="https://wiki.nps.edu/display/RC/Kinect+Installation+on+Ubuntu+14.04+and+ROS+Indigo" target="_blank" rel="noopener">https://wiki.nps.edu/display/RC/Kinect+Installation+on+Ubuntu+14.04+and+ROS+Indigo</a></p>
 <p>将Kinect摄像头接入ubuntu14.4，ROS indigo和Mask RCNN的图像识别服务，便于在不启动Baxter时利用Kinect的摄像头检测图像识别模型的目标识别效果，只需将原代码的订阅节点从Baxter末端摄像头切换到Kinect即可。</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/Kinect摄像头接入ROS/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -596,27 +514,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/PyTorch利用nn-Sequential优化网络搭建过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -624,9 +538,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/PyTorch%E5%88%A9%E7%94%A8nn-Sequential%E4%BC%98%E5%8C%96%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">PyTorch利用nn.Sequential优化网络搭建过程</a>
           
+            <a href="/PyTorch%E5%88%A9%E7%94%A8nn-Sequential%E4%BC%98%E5%8C%96%E7%BD%91%E7%BB%9C%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">PyTorch利用nn.Sequential优化网络搭建过程</a>
         </h1>
 
         <div class="post-meta">
@@ -636,16 +549,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-04-10 14:43:28" itemprop="dateCreated datePublished" datetime="2019-04-10T14:43:28+08:00">2019-04-10</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -653,8 +558,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -663,11 +566,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/PyTorch利用nn-Sequential优化网络搭建过程/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="PyTorch利用nn-Sequential优化网络搭建过程/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/PyTorch利用nn-Sequential优化网络搭建过程/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PyTorch利用nn-Sequential优化网络搭建过程/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -683,13 +586,11 @@
       
           <p>本文以MobileNet为例，学习利用循环搭建大规模、重复程度大的深度网络结构的方法，像ResNet、Inception等大规模网络也可以利用本方法很方便构建一个很深的网络，值得学习。</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/PyTorch利用nn-Sequential优化网络搭建过程/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -699,27 +600,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/PyTorch入门学习笔记：Dataset和模型初探/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -727,9 +624,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/PyTorch%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADataset%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">PyTorch入门学习笔记：Dataset和模型初探</a>
           
+            <a href="/PyTorch%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9ADataset%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">PyTorch入门学习笔记：Dataset和模型初探</a>
         </h1>
 
         <div class="post-meta">
@@ -739,16 +635,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-04-03 19:16:24" itemprop="dateCreated datePublished" datetime="2019-04-03T19:16:24+08:00">2019-04-03</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -756,8 +644,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -766,11 +652,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/PyTorch入门学习笔记：Dataset和模型初探/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="PyTorch入门学习笔记：Dataset和模型初探/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/PyTorch入门学习笔记：Dataset和模型初探/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PyTorch入门学习笔记：Dataset和模型初探/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -788,13 +674,11 @@
 <p>torchvision类似于tensorflow/models，包含了在计算机视觉领域主流的模型、数据以及图像处理函数。</p>
 <p>torchvision官方文档：<a href="https://pytorch.org/docs/stable/torchvision/index.html" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/index.html</a></p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/PyTorch入门学习笔记：Dataset和模型初探/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -804,27 +688,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/对于近期文章更新的说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -832,9 +712,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/%E5%AF%B9%E4%BA%8E%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0%E6%9B%B4%E6%96%B0%E7%9A%84%E8%AF%B4%E6%98%8E/" class="post-title-link" itemprop="url">对于近期文章更新的说明</a>
           
+            <a href="/%E5%AF%B9%E4%BA%8E%E8%BF%91%E6%9C%9F%E6%96%87%E7%AB%A0%E6%9B%B4%E6%96%B0%E7%9A%84%E8%AF%B4%E6%98%8E/" class="post-title-link" itemprop="url">对于近期文章更新的说明</a>
         </h1>
 
         <div class="post-meta">
@@ -844,16 +723,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2018-08-13 15:55:24" itemprop="dateCreated datePublished" datetime="2018-08-13T15:55:24+08:00">2018-08-13</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -861,8 +732,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -871,11 +740,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/对于近期文章更新的说明/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="对于近期文章更新的说明/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/对于近期文章更新的说明/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="对于近期文章更新的说明/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -894,7 +763,6 @@
 <p>未来的三年研究生活中，我打算做点深度学习和机器视觉相关的研究，最近在恶补很多机器学习和深度学习相关的入门知识，所以会更新点相关的学习笔记。</p>
 <p>希望自己能持之以恒，不要半途而废。</p>
 
-        
       
     </div>
 
@@ -902,27 +770,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/关于Underscore-js的map方法返回对象的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -930,9 +794,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/%E5%85%B3%E4%BA%8EUnderscore-js%E7%9A%84map%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">关于Underscore.js的map函数返回对象的问题</a>
           
+            <a href="/%E5%85%B3%E4%BA%8EUnderscore-js%E7%9A%84map%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">关于Underscore.js的map函数返回对象的问题</a>
         </h1>
 
         <div class="post-meta">
@@ -942,16 +805,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2017-09-07 15:29:13" itemprop="dateCreated datePublished" datetime="2017-09-07T15:29:13+08:00">2017-09-07</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -959,8 +814,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -969,11 +822,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/关于Underscore-js的map方法返回对象的问题/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="关于Underscore-js的map方法返回对象的问题/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/关于Underscore-js的map方法返回对象的问题/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="关于Underscore-js的map方法返回对象的问题/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -994,13 +847,11 @@
 </blockquote>
 <p>虽然<code>map()</code>函数接收一个数组或者集合作为输入，但是它永远只返回一个<strong>数组</strong>。如果对一个对象使用<code>map()</code>，那么返回的新集合将为原对象所有的<strong>值</strong>经过变换处理后组成的<strong>数组</strong>，而不是一个经过变换后的对象。</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/关于Underscore-js的map方法返回对象的问题/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -1010,27 +861,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/利用GitHub-Webhooks实现自动化部署/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1038,9 +885,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/%E5%88%A9%E7%94%A8GitHub-Webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">利用GitHub Webhooks实现自动化部署</a>
           
+            <a href="/%E5%88%A9%E7%94%A8GitHub-Webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">利用GitHub Webhooks实现自动化部署</a>
         </h1>
 
         <div class="post-meta">
@@ -1050,16 +896,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2017-09-01 09:50:10" itemprop="dateCreated datePublished" datetime="2017-09-01T09:50:10+08:00">2017-09-01</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -1067,8 +905,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -1077,11 +913,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/利用GitHub-Webhooks实现自动化部署/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="利用GitHub-Webhooks实现自动化部署/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/利用GitHub-Webhooks实现自动化部署/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="利用GitHub-Webhooks实现自动化部署/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -1101,13 +937,11 @@
 <p>服务器执行环境：Ubuntu 14.04，Apache 2.4.7，PHP 5.5.9</p>
 <p>GitHub Webhooks 文档：<a href="https://developer.github.com/webhooks/" target="_blank" rel="noopener">https://developer.github.com/webhooks/</a></p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/利用GitHub-Webhooks实现自动化部署/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -1117,27 +951,23 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-        <article itemscope itemtype="http://schema.org/Article">
+        
   
   
-  
-  <div class="post-block home">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yejiayong.com/Ubuntu修改Apache默认执行用户/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Ye Jiayong">
       <meta itemprop="description" content="Edge Computing, Vision">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1145,9 +975,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Ubuntu%E4%BF%AE%E6%94%B9Apache%E9%BB%98%E8%AE%A4%E6%89%A7%E8%A1%8C%E7%94%A8%E6%88%B7/" class="post-title-link" itemprop="url">Ubuntu修改Apache默认执行用户</a>
           
+            <a href="/Ubuntu%E4%BF%AE%E6%94%B9Apache%E9%BB%98%E8%AE%A4%E6%89%A7%E8%A1%8C%E7%94%A8%E6%88%B7/" class="post-title-link" itemprop="url">Ubuntu修改Apache默认执行用户</a>
         </h1>
 
         <div class="post-meta">
@@ -1157,16 +986,8 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2017-09-01 09:44:32" itemprop="dateCreated datePublished" datetime="2017-09-01T09:44:32+08:00">2017-09-01</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
@@ -1174,8 +995,6 @@
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-11-27 20:27:22" itemprop="dateModified" datetime="2019-11-27T20:27:22+08:00">2019-11-27</time>
               </span>
-            
-          
 
           
   
@@ -1184,11 +1003,11 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-comment-o"></i>
       </span>
-        
-      
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Ubuntu修改Apache默认执行用户/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ubuntu修改Apache默认执行用户/" itemprop="commentCount"></span></a>
+    <a title="disqus" href="/Ubuntu修改Apache默认执行用户/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ubuntu修改Apache默认执行用户/" itemprop="commentCount"></span>
+    </a>
   </span>
   
   
@@ -1205,13 +1024,11 @@
           <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ubuntu的Apache默认执行用户是<code>www-data</code>，用户组是<code>www-data</code>，但是由于<code>www-data</code>为低权限用户，有时会出现使用php读取文件、执行脚本时出现权限不够的情况，因此可以通过修改Apache的配置，达到使用其他用户执行Apache的效果。</p>
 <p>适用版本：Apache 2.4.7</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/Ubuntu修改Apache默认执行用户/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -1221,16 +1038,13 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
   </div>
 
   
@@ -1239,18 +1053,17 @@
   </nav>
 
 
+
           </div>
           
 
         </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
   <aside class="sidebar">
@@ -1272,50 +1085,31 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="Ye Jiayong"
+    src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Ye Jiayong</p>
   <div class="site-description" itemprop="description">Edge Computing, Vision</div>
 </div>
-  <nav class="site-state motion-element">
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        
           <a href="/archives/">
         
           <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-tags">
-        
-          
             <a href="/tags/">
-          
-        
         <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">标签</span>
-        </a>
+        <span class="site-state-item-name">标签</span></a>
       </div>
-    
   </nav>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
+</div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://github.com/kelvin65535" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;kelvin65535" rel="noopener" target="_blank">&lt;i class&#x3D;&quot;fa fa-fw fa-github&quot;&gt;&lt;&#x2F;i&gt;GitHub</a>
+        <a href="https://github.com/kelvin65535" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;kelvin65535" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
-    
   </div>
 
 
@@ -1330,37 +1124,45 @@
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Ye Jiayong</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0
+  </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
 <div class="busuanzi-count">
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
     </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
     <span class="post-meta-divider">|</span>
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
     </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
 </div>
 
 
@@ -1380,16 +1182,14 @@
   </div>
 
   
-
-
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="/lib/anime.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
-<script src="/js/schemes/pisces.js?v=7.4.0"></script>
-<script src="/js/next-boot.js?v=7.4.0"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1410,35 +1210,6 @@
 
 
 
-
-
-
-
-
-  
-
-  
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
   
 
   
