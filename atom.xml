@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yejiayong.com/"/>
-  <updated>2019-11-27T14:45:12.527Z</updated>
+  <updated>2019-11-29T13:15:47.623Z</updated>
   <id>http://yejiayong.com/</id>
   
   <author>
@@ -17,15 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Calibration库开发笔记（二）：CMake依赖管理</title>
+    <link href="http://yejiayong.com/Calibration%E5%BA%93%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9ACMake%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%92%8C%E6%9E%84%E5%BB%BA%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yejiayong.com/Calibration库开发笔记（二）：CMake依赖管理和构建配置/</id>
+    <published>2019-11-29T07:14:29.000Z</published>
+    <updated>2019-11-29T13:15:47.623Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文是Calibration库的第二篇开发笔记，在开发Calibration库的过程中，会陆续将遇到的问题和解决方案记录下来，以供日后查阅和参考。&lt;/p&gt;
+&lt;p&gt;在此次开发中我打算解决Calibration库依赖的第三方库导入问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C++ Robotic OpenCV" scheme="http://yejiayong.com/tags/C-Robotic-OpenCV/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Calibration库开发笔记（一）：前期准备</title>
     <link href="http://yejiayong.com/Calibration%E5%BA%93%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/"/>
     <id>http://yejiayong.com/Calibration库开发笔记（一）：前期准备/</id>
     <published>2019-11-27T14:33:23.000Z</published>
-    <updated>2019-11-27T14:45:12.527Z</updated>
+    <updated>2019-11-29T13:17:16.932Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;最近在进行机器人抓取的实验和研究，其中用到了很多与图像处理相关的算法，比如相机内参标定、机器人手眼标定和点云配准等。虽然这些算法在OpenCV、PCL和ROS框架都已经有很方便的实现，而且这些函数的稳健型都很高，但是我还是有把这些操作封装成库的想法，原因有几个： &lt;/p&gt;
+      &lt;p&gt;最近在进行机器人抓取的实验和研究，其中用到了很多与图像处理相关的算法，比如相机内参标定、机器人手眼标定和点云配准等。虽然这些算法在OpenCV、PCL和ROS框架都已经有很方便的实现，而且这些函数的稳健型都很高，但是我还是有把这些操作封装成库的想法，原因有几个： &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;这些算法的计算都需要提供不少的输入，而在应用中每次调用都要先写上一大段准备输入的代码，因此打算使用Wrapper把算法和输入封装成直接调用的函数； &lt;/p&gt;
 &lt;/li&gt;
